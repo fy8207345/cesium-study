@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <!-- Include the CesiumJS JavaScript and CSS files -->
+  <script src="../Build/Cesium/Cesium.js"></script>
+  <link href="../Build/Cesium/Widgets/widgets.css" rel="stylesheet">
+</head>
+<body>
+  <div id="cesiumContainer"></div>
+  <script>
+    // Your access token can be found at: https://cesium.com/ion/tokens.
+    // Replace `your_access_token` with your Cesium ion access token.
+
+    Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIwYTVhMDI3MS04ZDBjLTQ1MjEtOWJiZi1jZWNlNjAxYzEwZmUiLCJpZCI6OTkxMjYsImlhdCI6MTY1NjMwODU2M30.8JpVYI7Wo9j09hdLQP60T4AYbZcG5Hom0RqvK1L8QpM';
+
+    // Initialize the Cesium Viewer in the HTML element with the `cesiumContainer` ID.
+    const viewer = new Cesium.Viewer('cesiumContainer');    
+    // Add Cesium OSM Buildings, a global 3D buildings layer.
+    // Fly the camera to San Francisco at the given longitude, latitude, and height.
+    //方法一：通过代码添加
+    // let redbox = viewer.entities.add({
+    //   name: 'REd box',
+    //   position: Cesium.Cartesian3.fromDegrees(-107.0, 40.0, 300000.0),
+    //   box: {
+    //     dimensions: new Cesium.Cartesian3(400000.0, 300000.0, 500000.0),
+    //     material: Cesium.Color.RED.withAlpha(0.5),
+    //     outline: true,
+    //     outlineColor: Cesium.Color.BLACK
+    //   }
+    // })
+
+    // viewer.zoomTo(viewer.entitis)
+
+    //方法二：通过CZML加载
+    // let czml = [
+    //   {
+    //     "id": "document",
+    //     "name": "box",
+    //     "version": "1.0"
+    //   },
+    //   {
+    //     "id": "shape2",
+    //     "name": "Red Box with black outline",
+    //     "position": {
+    //       "cartographicDegrees": [-107.0, 40.0, 300000.0]
+    //     },
+    //     "box": {
+    //       "dimensions": {
+    //         "cartesian": [400000.0, 300000.0, 500000.0]
+    //       },
+    //       "material": {
+    //         "solidColor": {
+    //           "color": {
+    //             "rgba": [255, 0, 0, 128]
+    //           }
+    //         }
+    //       },
+    //       "outline": true,
+    //       "outlineColor": {
+    //         "rgba": [0, 0, 0, 255]
+    //       }
+    //     }
+    //   }
+    // ]
+    // let dataSource = Cesium.CzmlDataSource.load(czml)
+    // viewer.dataSources.add(dataSource)
+    // viewer.zoomTo(dataSource)
+
+    //
+    const blueBox = viewer.entities.add({
+      name: "Blue Box",
+      position: Cesium.Cartesian3.fromDegrees(-114.0, 40.0, 300000.0),
+      box: {
+        dimensions: new Cesium.Cartesian3(400000.0, 300000.0, 500000.0),
+        material: Cesium.Color.BLUE
+      }
+    })
+
+    const redBox = viewer.entities.add({
+      name: "Blue Box",
+      position: Cesium.Cartesian3.fromDegrees(-107.0, 40.0, 300000.0),
+      box: {
+        dimensions: new Cesium.Cartesian3(400000.0, 300000.0, 500000.0),
+        material: Cesium.Color.RED.withAlpha(0.5),
+        outline: true
+      }
+    })
+
+    const outlineOnly = viewer.entities.add({
+      name: "Blue Box",
+      position: Cesium.Cartesian3.fromDegrees(-100.0, 40.0, 300000.0),
+      box: {
+        dimensions: new Cesium.Cartesian3(400000.0, 300000.0, 500000.0),
+        fill: false,
+        outline: true,
+        outlineColor: Cesium.Color.YELLOW
+      }
+    })
+
+    viewer.zoomTo(viewer.entities)
+  </script>
+ </div>
+</body>
+</html>

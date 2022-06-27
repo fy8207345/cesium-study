@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <!-- Include the CesiumJS JavaScript and CSS files -->
+  <script src="../Build/Cesium/Cesium.js"></script>
+  <link href="../Build/Cesium/Widgets/widgets.css" rel="stylesheet">
+</head>
+<body>
+  <div id="cesiumContainer"></div>
+  <script>
+    // Your access token can be found at: https://cesium.com/ion/tokens.
+    // Replace `your_access_token` with your Cesium ion access token.
+
+    Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIwYTVhMDI3MS04ZDBjLTQ1MjEtOWJiZi1jZWNlNjAxYzEwZmUiLCJpZCI6OTkxMjYsImlhdCI6MTY1NjMwODU2M30.8JpVYI7Wo9j09hdLQP60T4AYbZcG5Hom0RqvK1L8QpM';
+
+    // Initialize the Cesium Viewer in the HTML element with the `cesiumContainer` ID.
+    const viewer = new Cesium.Viewer('cesiumContainer'
+    , {
+      animation: false,
+      fullscreenButton: false,
+      vrButton: false,
+      geocoder: false,
+      homeButton: false,
+      infoBox: false,
+      sceneModePicker: false,
+      selectionIndicator: false,
+      timeline: false,
+      navigationHelpButton: false,
+      navigationInstructionsInitiallyVisible: false,
+      scene3DOnly: true,
+      shouldAnimate: true,
+      //哥伦比亚视图
+      // sceneMode: Cesium.SceneMode.COLUMBUS_VIEW,
+      //使用cesium 全球高程数据
+      terrainProvider: Cesium.createWorldTerrain(),
+      // 禁止选择基础图层？
+      baseLayerPicker: false,
+      imageryProvider: new Cesium.OpenStreetMapImageryProvider({
+        url: 'https://a.tile.openstreetmap.org/'
+      }),
+      skyBox: new Cesium.SkyBox({
+        sources: {
+          positiveX : 'stars/TychoSkymapII.t3_08192x04096_80_px.jpg',
+          negativeX : 'stars/TychoSkymapII.t3_08192x04096_80_mx.jpg',
+          positiveY : 'stars/TychoSkymapII.t3_08192x04096_80_py.jpg',
+          negativeY : 'stars/TychoSkymapII.t3_08192x04096_80_my.jpg',
+          positiveZ : 'stars/TychoSkymapII.t3_08192x04096_80_pz.jpg',
+          negativeZ : 'stars/TychoSkymapII.t3_08192x04096_80_mz.jpg'
+        }
+      }),
+      mapProjection: new Cesium.WebMercatorProjection()
+    });    
+
+    viewer.extend(Cesium.viewerDragDropMixin);
+
+    viewer.dropError.addEventListener(function(dropHandler, name, error){
+      console.log(error)
+      window.alert(error)
+    })
+  </script>
+ </div>
+</body>
+</html>
